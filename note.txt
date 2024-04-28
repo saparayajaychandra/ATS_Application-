@@ -1,0 +1,63 @@
+streamlit
+google-generativeai
+python-dotenv
+pdf2image
+
+pip install -r requirements.txt
+
+
+app.py:-
+------
+1. field to put my JD
+2. upload pdf
+3. pdf to image ---> processing --> google gemini pro
+4. prompts template[multiple prompta]
+
+
+
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+import streamlit as st
+import os
+from PIL import image
+import pdf2image
+import google.generativeai as genai
+
+
+GOOGLE_API_KEY="AIzaSyBE1vMUP_lMHT4dPDLFQtrOeQwMPnuQ7x8"
+
+
+genai.configure(api_key-os.getenv("GOOGLE_API_KEY"))
+
+def get_gemini_response(input, pdf_content, prompt):
+model=gena9i.GenerativeModel('gemini-pro-vision')
+response=model.generate_content([input, pdf_content[0], prompt)
+return response.text
+
+
+input_prompt1="""
+Yoyu are an experienced HR with Tech  experience in the filed of data science, Full stack Wed development, data analyst, data engineer, Big data engineering, devops your task is review the provided 
+resume against the job description for these profiles.
+Please share your professional evaluation on whether the candidate's profile aligns with the role.
+Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
+
+input_prompt3 = """
+You are an skilled ATS (Applicant Tracking System) scanner with a deep understanding of any one job roledata science and ATS functionality, 
+your task is to evaluate the resume against the provided job description. give me the percentage of match if the resume matches
+the job description. First the output should come as percentage and then keywords missing and last final thoughts.
+"""
+
+
+You are an experienced HR with Tech  experience in the filed of any one job role from data science, Full stack Wed development, data analyst, data engineer, Big data engineering, devops your task is review the provided 
+resume against the job description for these profiles.
+Please share your professional evaluation on whether the candidate's profile aligns with the role.
+Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements."""
+
+
+python -m streamlit run app.py
+
+
+
